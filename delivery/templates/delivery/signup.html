@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% load static %}
     <link rel="stylesheet" href="{% static 'delivery/css/styles.css' %}">
-    <title>Document</title>
+    <title>Sign Up</title>
 </head>
 <body>
-    <H3>SignUP Below:</H1>
+    <H3>Sign up Below:</H1>
         <form method='POST' action= "{% url 'handle_signup' %}">
             {% csrf_token %}
             <label>Username: </label>
@@ -32,9 +32,8 @@
             <textarea name="address"></textarea>
             <br><br>
 
-            <button type="submit">SIGNUP</button>
+            <button type="submit">SIGN UP</button>
             </form>
            
-
 </body>
 </html>

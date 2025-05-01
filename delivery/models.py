@@ -22,3 +22,25 @@ class Restaurant(models.Model):
     def __str__(self):
         return f"{self.name} {self.cuisine} {self.rating}/5"
     
+
+class MenuItem(models.Model):
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE,related_name="menu_items")
+    
+    name = models.CharField(max_length = 20)
+    picture= models.URLField(max_length = 200, default="https://tse3.mm.bing.net/th?id=OIP.2m1dArMN66tARO1JKl8g1wHaE7&pid=Api&P=0&h=180")
+    description = models.CharField(max_length = 203)
+    price = models.FloatField()
+    is_veg = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f"{self.name} {self.description} {self.price}"
+    
+class Cart(models.Model):
+    customer = models.ForeignKey(Customer, on_delete = models.CASCADE, related_name = "cart")
+    items = models.ManyToManyField("MenuItem",related_name="carts")
+
+    def total_price(self):
+        return sum(item.price for item in self.items.all())
+
+    def __str__(self):
+        return f"{self.customer.username} {self.total_price}"
